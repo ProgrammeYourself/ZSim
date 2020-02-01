@@ -34,10 +34,13 @@ class Application:
 
             for acounter in self.axlecountergroup:
                 if Train1.rightx == acounter.x:
-                    if acounter.targetleft != None:
-                        self.canvas.itemconfig(acounter.targetleft.block, fill="green")
                     if acounter.targetright != None:
                         self.canvas.itemconfig(acounter.targetright.block, fill="red")
+
+                if Train1.leftx == acounter.x:
+                    if acounter.targetleft != None:
+                        self.canvas.itemconfig(acounter.targetleft.block, fill="green")
+
             Train1.move()
 
 class Objects(Application):
@@ -55,14 +58,14 @@ class Train(Objects):
         Objects.__init__(self, "Train", sim)
         self.trntype = trntype
         self.trnimage = trnimage
-        self.x = x
-        self.rightx = self.x+112
+        self.leftx = x
+        self.rightx = self.leftx+112
         self.y = y
         self.trn = self.sim.canvas.create_image(x, y, image=trnimage, anchor="sw")
 
     def move(self):
         self.sim.canvas.move(self.trn, 1, 0)
-        self.x += 1
+        self.leftx += 1
         self.rightx += 1
 
 class AxleCounter(Objects):
